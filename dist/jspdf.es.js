@@ -1,7 +1,7 @@
 /** @license
  *
  * jsPDF - PDF Document creation from JavaScript
- * Version 1.5.3 Built on 2020-07-14T09:34:15.863Z
+ * Version 1.5.3 Built on 2020-07-17T15:37:14.216Z
  *                      CommitID 00000000
  *
  * Copyright (c) 2010-2018 James Hall <james@parall.ax>, https://github.com/MrRio/jsPDF
@@ -1552,207 +1552,205 @@ function jsPDF(options) {
       return new Matrix(sx, shy, shx, sy, tx, ty);
     }
 
-    var _matrix = [];
+    if (isNaN(sx)) sx = 1;
+    if (isNaN(shy)) shy = 0;
+    if (isNaN(shx)) shx = 0;
+    if (isNaN(sy)) sy = 1;
+    if (isNaN(tx)) tx = 0;
+    if (isNaN(ty)) ty = 0;
 
-    /**
-     * @name sx
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "sx", {
-      get: function() {
-        return _matrix[0];
-      },
-      set: function(value) {
-        _matrix[0] = value;
-      }
-    });
-
-    /**
-     * @name shy
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "shy", {
-      get: function() {
-        return _matrix[1];
-      },
-      set: function(value) {
-        _matrix[1] = value;
-      }
-    });
-
-    /**
-     * @name shx
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "shx", {
-      get: function() {
-        return _matrix[2];
-      },
-      set: function(value) {
-        _matrix[2] = value;
-      }
-    });
-
-    /**
-     * @name sy
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "sy", {
-      get: function() {
-        return _matrix[3];
-      },
-      set: function(value) {
-        _matrix[3] = value;
-      }
-    });
-
-    /**
-     * @name tx
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "tx", {
-      get: function() {
-        return _matrix[4];
-      },
-      set: function(value) {
-        _matrix[4] = value;
-      }
-    });
-
-    /**
-     * @name ty
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "ty", {
-      get: function() {
-        return _matrix[5];
-      },
-      set: function(value) {
-        _matrix[5] = value;
-      }
-    });
-
-    Object.defineProperty(this, "a", {
-      get: function() {
-        return _matrix[0];
-      },
-      set: function(value) {
-        _matrix[0] = value;
-      }
-    });
-
-    Object.defineProperty(this, "b", {
-      get: function() {
-        return _matrix[1];
-      },
-      set: function(value) {
-        _matrix[1] = value;
-      }
-    });
-
-    Object.defineProperty(this, "c", {
-      get: function() {
-        return _matrix[2];
-      },
-      set: function(value) {
-        _matrix[2] = value;
-      }
-    });
-
-    Object.defineProperty(this, "d", {
-      get: function() {
-        return _matrix[3];
-      },
-      set: function(value) {
-        _matrix[3] = value;
-      }
-    });
-
-    Object.defineProperty(this, "e", {
-      get: function() {
-        return _matrix[4];
-      },
-      set: function(value) {
-        _matrix[4] = value;
-      }
-    });
-
-    Object.defineProperty(this, "f", {
-      get: function() {
-        return _matrix[5];
-      },
-      set: function(value) {
-        _matrix[5] = value;
-      }
-    });
-
-    /**
-     * @name rotation
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "rotation", {
-      get: function() {
-        return Math.atan2(this.shx, this.sx);
-      }
-    });
-
-    /**
-     * @name scaleX
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "scaleX", {
-      get: function() {
-        return this.decompose().scale.sx;
-      }
-    });
-
-    /**
-     * @name scaleY
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "scaleY", {
-      get: function() {
-        return this.decompose().scale.sy;
-      }
-    });
-
-    /**
-     * @name isIdentity
-     * @memberof Matrix#
-     */
-    Object.defineProperty(this, "isIdentity", {
-      get: function() {
-        if (this.sx !== 1) {
-          return false;
-        }
-        if (this.shy !== 0) {
-          return false;
-        }
-        if (this.shx !== 0) {
-          return false;
-        }
-        if (this.sy !== 1) {
-          return false;
-        }
-        if (this.tx !== 0) {
-          return false;
-        }
-        if (this.ty !== 0) {
-          return false;
-        }
-        return true;
-      }
-    });
-
-    this.sx = !isNaN(sx) ? sx : 1;
-    this.shy = !isNaN(shy) ? shy : 0;
-    this.shx = !isNaN(shx) ? shx : 0;
-    this.sy = !isNaN(sy) ? sy : 1;
-    this.tx = !isNaN(tx) ? tx : 0;
-    this.ty = !isNaN(ty) ? ty : 0;
-
-    return this;
+    this._matrix = [sx, shy, shx, sy, tx, ty];
   };
+
+  /**
+   * @name sx
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "sx", {
+    get: function() {
+      return this._matrix[0];
+    },
+    set: function(value) {
+      this._matrix[0] = value;
+    }
+  });
+
+  /**
+   * @name shy
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "shy", {
+    get: function() {
+      return this._matrix[1];
+    },
+    set: function(value) {
+      this._matrix[1] = value;
+    }
+  });
+
+  /**
+   * @name shx
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "shx", {
+    get: function() {
+      return this._matrix[2];
+    },
+    set: function(value) {
+      this._matrix[2] = value;
+    }
+  });
+
+  /**
+   * @name sy
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "sy", {
+    get: function() {
+      return this._matrix[3];
+    },
+    set: function(value) {
+      this._matrix[3] = value;
+    }
+  });
+
+  /**
+   * @name tx
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "tx", {
+    get: function() {
+      return this._matrix[4];
+    },
+    set: function(value) {
+      this._matrix[4] = value;
+    }
+  });
+
+  /**
+   * @name ty
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "ty", {
+    get: function() {
+      return this._matrix[5];
+    },
+    set: function(value) {
+      this._matrix[5] = value;
+    }
+  });
+
+  Object.defineProperty(Matrix.prototype, "a", {
+    get: function() {
+      return this._matrix[0];
+    },
+    set: function(value) {
+      this._matrix[0] = value;
+    }
+  });
+
+  Object.defineProperty(Matrix.prototype, "b", {
+    get: function() {
+      return this._matrix[1];
+    },
+    set: function(value) {
+      this._matrix[1] = value;
+    }
+  });
+
+  Object.defineProperty(Matrix.prototype, "c", {
+    get: function() {
+      return this._matrix[2];
+    },
+    set: function(value) {
+      this._matrix[2] = value;
+    }
+  });
+
+  Object.defineProperty(Matrix.prototype, "d", {
+    get: function() {
+      return this._matrix[3];
+    },
+    set: function(value) {
+      this._matrix[3] = value;
+    }
+  });
+
+  Object.defineProperty(Matrix.prototype, "e", {
+    get: function() {
+      return this._matrix[4];
+    },
+    set: function(value) {
+      this._matrix[4] = value;
+    }
+  });
+
+  Object.defineProperty(Matrix.prototype, "f", {
+    get: function() {
+      return this._matrix[5];
+    },
+    set: function(value) {
+      this._matrix[5] = value;
+    }
+  });
+
+  /**
+   * @name rotation
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "rotation", {
+    get: function() {
+      return Math.atan2(this.shx, this.sx);
+    }
+  });
+
+  /**
+   * @name scaleX
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "scaleX", {
+    get: function() {
+      return this.decompose().scale.sx;
+    }
+  });
+
+  /**
+   * @name scaleY
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "scaleY", {
+    get: function() {
+      return this.decompose().scale.sy;
+    }
+  });
+
+  /**
+   * @name isIdentity
+   * @memberof Matrix#
+   */
+  Object.defineProperty(Matrix.prototype, "isIdentity", {
+    get: function() {
+      if (this.sx !== 1) {
+        return false;
+      }
+      if (this.shy !== 0) {
+        return false;
+      }
+      if (this.shx !== 0) {
+        return false;
+      }
+      if (this.sy !== 1) {
+        return false;
+      }
+      if (this.tx !== 0) {
+        return false;
+      }
+      if (this.ty !== 0) {
+        return false;
+      }
+      return true;
+    }
+  });
 
   /**
    * Join the Matrix Values to a String
@@ -2888,11 +2886,10 @@ function jsPDF(options) {
       isStandardFont: isStandardFont || false,
       metadata: {}
     };
-    var instance = this;
 
     events.publish("addFont", {
       font: font,
-      instance: instance
+      instance: this
     });
 
     fonts[font.id] = font;
@@ -2902,7 +2899,8 @@ function jsPDF(options) {
 
   var addFonts = function(arrayOfFonts) {
     for (var i = 0, l = standardFonts.length; i < l; i++) {
-      var fontKey = addFont(
+      var fontKey = addFont.call(
+        this,
         arrayOfFonts[i][0],
         arrayOfFonts[i][1],
         arrayOfFonts[i][2],
@@ -3583,6 +3581,7 @@ function jsPDF(options) {
           var dataURLNewWindow = globalObject.open();
           if (dataURLNewWindow !== null) {
             dataURLNewWindow.document.write(htmlForDataURLNewWindow);
+            dataURLNewWindow.document.title = options.filename;
           }
           if (dataURLNewWindow || typeof safari === "undefined")
             return dataURLNewWindow;
@@ -5400,10 +5399,10 @@ function jsPDF(options) {
   /**
    * Add a custom font to the current instance.
    *
-   * @property {string} postScriptName PDF specification full name for the font.
-   * @property {string} id PDF-document-instance-specific label assinged to the font.
-   * @property {string} fontStyle Style of the Font.
-   * @property {Object} encoding Encoding_name-to-Font_metrics_object mapping.
+   * @param {string} postScriptName PDF specification full name for the font.
+   * @param {string} id PDF-document-instance-specific label assinged to the font.
+   * @param {string} fontStyle Style of the Font.
+   * @param {Object} encoding Encoding_name-to-Font_metrics_object mapping.
    * @function
    * @instance
    * @memberof jsPDF#
@@ -6468,7 +6467,7 @@ function jsPDF(options) {
   // continuing initialization of jsPDF Document object
   //////////////////////////////////////////////////////
   // Add the first page automatically
-  addFonts(standardFonts);
+  addFonts.call(API, standardFonts);
   activeFontKey = "F1";
   _addPage(format, orientation);
 
@@ -12539,11 +12538,11 @@ var AcroForm = jsPDF.AcroForm;
         var fontSizeUnit = rxFontSize.exec(fontSize)[2];
 
         if ("px" === fontSizeUnit) {
-          fontSize = Math.floor(parseFloat(fontSize));
+          fontSize = Math.floor(parseFloat(fontSize) * this.pdf.internal.scaleFactor);
         } else if ("em" === fontSizeUnit) {
           fontSize = Math.floor(parseFloat(fontSize) * this.pdf.getFontSize());
         } else {
-          fontSize = Math.floor(parseFloat(fontSize));
+          fontSize = Math.floor(parseFloat(fontSize) * this.pdf.internal.scaleFactor);
         }
 
         this.pdf.setFontSize(fontSize);
@@ -13686,7 +13685,8 @@ var AcroForm = jsPDF.AcroForm;
     var fillStyle = this.fillStyle;
     var strokeStyle = this.strokeStyle;
     var lineCap = this.lineCap;
-    var lineWidth = this.lineWidth;
+    var oldLineWidth = this.lineWidth;
+    var lineWidth = oldLineWidth * this.ctx.transform.scaleX;
     var lineJoin = this.lineJoin;
 
     var origPath = JSON.parse(JSON.stringify(this.path));
@@ -13746,9 +13746,12 @@ var AcroForm = jsPDF.AcroForm;
         if (isClip === false || k === 0) {
           drawPaths.call(this, rule, isClip);
         }
+        this.lineWidth = oldLineWidth;
       }
     } else {
+      this.lineWidth = lineWidth;
       drawPaths.call(this, rule, isClip);
+      this.lineWidth = oldLineWidth;
     }
     this.path = origPath;
   };
@@ -14074,7 +14077,7 @@ var AcroForm = jsPDF.AcroForm;
 
     sortPages(pages);
 
-    var clipPath, oldSize;
+    var clipPath, oldSize, oldLineWidth;
     if (this.autoPaging === true) {
       var min = pages[0];
       var max = pages[pages.length - 1];
@@ -14102,6 +14105,8 @@ var AcroForm = jsPDF.AcroForm;
         if (options.scale >= 0.01) {
           oldSize = this.pdf.internal.getFontSize();
           this.pdf.setFontSize(oldSize * options.scale);
+          oldLineWidth = this.lineWidth;
+          this.lineWidth = oldLineWidth * options.scale;
         }
         this.pdf.text(options.text, tmpRect.x, tmpRect.y, {
           angle: options.angle,
@@ -14112,12 +14117,15 @@ var AcroForm = jsPDF.AcroForm;
 
         if (options.scale >= 0.01) {
           this.pdf.setFontSize(oldSize);
+          this.lineWidth = oldLineWidth;
         }
       }
     } else {
       if (options.scale >= 0.01) {
         oldSize = this.pdf.internal.getFontSize();
         this.pdf.setFontSize(oldSize * options.scale);
+        oldLineWidth = this.lineWidth;
+        this.lineWidth = oldLineWidth * options.scale;
       }
       this.pdf.text(options.text, pt.x + this.posX, pt.y + this.posY, {
         angle: options.angle,
@@ -14128,6 +14136,7 @@ var AcroForm = jsPDF.AcroForm;
 
       if (options.scale >= 0.01) {
         this.pdf.setFontSize(oldSize);
+        this.lineWidth = oldLineWidth;
       }
     }
   };
@@ -18298,9 +18307,10 @@ function Deflater(options) {
 
 /* eslint-disable no-unreachable */
 
-function loadOptionalLibrary(name) {
-  if (globalObject[name]) {
-    return Promise.resolve(globalObject[name]);
+function loadOptionalLibrary(name, globalName) {
+  globalName = globalName || name;
+  if (globalObject[globalName]) {
+    return Promise.resolve(globalObject[globalName]);
   }
 
   return import(name);
@@ -18327,6 +18337,12 @@ function loadOptionalLibrary(name) {
   function loadHtml2Canvas() {
     return loadOptionalLibrary("html2canvas").catch(function(e) {
       return Promise.reject(new Error("Could not load html2canvas: " + e));
+    });
+  }
+
+  function loadDomPurify() {
+    return loadOptionalLibrary("dompurify", "DOMPurify").catch(function(e) {
+      return Promise.reject(new Error("Could not load dompurify: " + e));
     });
   }
 
@@ -18357,12 +18373,8 @@ function loadOptionalLibrary(name) {
   var createElement = function(tagName, opt) {
     var el = document.createElement(tagName);
     if (opt.className) el.className = opt.className;
-    if (opt.innerHTML) {
-      el.innerHTML = opt.innerHTML;
-      var scripts = el.getElementsByTagName("script");
-      for (var i = scripts.length; i-- > 0; ) {
-        scripts[i].parentNode.removeChild(scripts[i]);
-      }
+    if (opt.innerHTML && opt.dompurify) {
+      el.innerHTML = opt.dompurify.sanitize(opt.innerHTML);
     }
     for (var key in opt.style) {
       el.style[key] = opt.style[key];
@@ -18491,7 +18503,14 @@ function loadOptionalLibrary(name) {
       type = type || getType(src);
       switch (type) {
         case "string":
-          return this.set({ src: createElement("div", { innerHTML: src }) });
+          return this.then(loadDomPurify).then(function(dompurify) {
+            return this.set({
+              src: createElement("div", {
+                innerHTML: src,
+                dompurify: dompurify
+              })
+            });
+          });
         case "element":
           return this.set({ src: src });
         case "canvas":
@@ -22018,7 +22037,7 @@ function GifReader(buf) {
     var framestride = width - framewidth;
     var xleft = framewidth; // Number of subrect pixels left in scanline.
 
-    // Output indicies of the top left and bottom right corners of the subrect.
+    // Output indices of the top left and bottom right corners of the subrect.
     var opbeg = (frame.y * width + frame.x) * 4;
     var opend = ((frame.y + frame.height) * width + frame.x) * 4;
     var op = opbeg;
@@ -22090,7 +22109,7 @@ function GifReader(buf) {
     var framestride = width - framewidth;
     var xleft = framewidth; // Number of subrect pixels left in scanline.
 
-    // Output indicies of the top left and bottom right corners of the subrect.
+    // Output indices of the top left and bottom right corners of the subrect.
     var opbeg = (frame.y * width + frame.x) * 4;
     var opend = ((frame.y + frame.height) * width + frame.x) * 4;
     var op = opbeg;
@@ -30304,6 +30323,9 @@ WebPDecoder.prototype.getData = function() {
       var file = undefined;
       var font = data.font;
       var instance = data.instance;
+      if (font.isStandardFont) {
+        return;
+      }
       if (typeof instance !== "undefined") {
         if (instance.existsFileInVFS(font.postScriptName) === false) {
           file = instance.loadFile(font.postScriptName);
@@ -30318,7 +30340,7 @@ WebPDecoder.prototype.getData = function() {
           );
         }
         addFont(font, file);
-      } else if (font.isStandardFont === false) {
+      } else {
         throw new Error(
           "Font does not exist in vFS, import fonts or remove declaration doc.addFont('" +
             font.postScriptName +
@@ -36335,3 +36357,4 @@ jsPDF.API.PDFObject = (function() {
 
 export default jsPDF;
 export { AcroForm, AcroFormAppearance, AcroFormButton, AcroFormCheckBox, AcroFormChoiceField, AcroFormComboBox, AcroFormEditBox, AcroFormListBox, AcroFormPasswordField, AcroFormPushButton, AcroFormRadioButton, AcroFormTextField, GState, ShadingPattern, TilingPattern, jsPDF };
+//# sourceMappingURL=jspdf.es.js.map
